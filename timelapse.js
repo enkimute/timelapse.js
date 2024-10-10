@@ -18,9 +18,9 @@
       while (pos < data.byteLength) {
         var elementID = vint(), elementSize = vint();
         switch(elementID) {
-          case 103: var nts=Math.round(1000/fps*framecount); while (elementSize--) data[pos++]=(nts>>(elementSize*8))&255; clusterFrame=0; break;
-          case  35: vint(); var nts=Math.round(1000/fps*clusterFrame); data[pos++]=nts>>8; data[pos++]=nts&255; pos+=elementSize-3; framecount++; clusterFrame++; break;
-          default : if (elementSize != 72057594037927940 ) pos += elementSize; 
+          case 0x67: var nts=Math.round(1000/fps*framecount); while (elementSize--) data[pos++]=(nts>>(elementSize*8))&255; clusterFrame=0; break;
+          case 0x21: var nts=Math.round(1000/fps*clusterFrame); data[pos+1]=nts>>8; data[pos+2]=nts&255; pos+=elementSize; framecount++; clusterFrame++; break;
+          default : if (elementSize != 72057594037927940 && elementID != 0x20) pos += elementSize; 
         }
       }
       complete&&complete(new Blob([data],{type:'video/webm'}));
