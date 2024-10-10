@@ -19,7 +19,7 @@
         var elementID = vint(), elementSize = vint();
         switch(elementID) {
           case 0x67: var nts=Math.round(1000/fps*framecount); while (elementSize--) data[pos++]=(nts>>(elementSize*8))&255; clusterFrame=0; break;
-          case 0x21: var nts=Math.round(1000/fps*clusterFrame); data[pos+1]=nts>>8; data[pos+2]=nts&255; pos+=elementSize; framecount++; clusterFrame++; break;
+          case 0x23: case 0x21: var nts=Math.round(1000/fps*clusterFrame); data[pos+1]=nts>>8; data[pos+2]=nts&255; pos+=elementSize; framecount++; clusterFrame++; break;
           default : if (elementSize != 72057594037927940 && elementID != 0x20) pos += elementSize; 
         }
       }
